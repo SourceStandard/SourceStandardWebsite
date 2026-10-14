@@ -1,0 +1,13 @@
+import {env} from 'cloudflare:workers';
+import {getDb} from '../../db';
+import {adminSessions,intakeLimits} from '../../db/schema';
+import {eq,lt,sql} from 'drizzle-orm';
+const hex=(b:ArrayBuffer)=>Array.from(new Uint8Array(b),x=>x.toString(16).padStart(2,'0')).join('');
+export const digest=async(s:string)=>hex(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)));
+export const reply=(body:unknown,status=200)=>Response.json(body,{status,headers:{'Cache-Control':'no-store'}});
+export function sameOrigin(r:Request){return r.headers.get('origin')===new URL(r.url).origin;}
+export async function readBody(r:Request){if(!r.headers.get('content-type')?.includes('application/json'))throw Error('JSON required');const text=await r.text();if(text.length>8192)throw Error('Too large');return JSON.parse(text);}
+export async function authorized(r:Request){const token=r.headers.get('cookie')?.split(';').map(x=>x.trim()).find(x=>x.startsWith('ss_admin='))?.slice(9);if(!token)return false;const rows=await getDb().select().from(adminSessions).where(eq(adminSessions.tokenHash,await digest(token))).limit(1);return !!rows[0]&&rows[0].expiresAt>new Date().toISOString();}
+export async function limited(r:Request,scope:string,max:number){const key=await digest(scope+':'+(r.headers.get('cf-connecting-ip')||'local'));const db=getDb();const now=new Date().toISOString();await db.delete(intakeLimits).where(lt(intakeLimits.expiresAt,now));const expiry=new Date(Date.now()+900000).toISOString();const rows=await db.insert(intakeLimits).values({key,attempts:'1',expiresAt:expiry}).onConflictDoUpdate({target:intakeLimits.key,set:{attempts:sql`CAST(${intakeLimits.attempts} AS INTEGER) + 1`}}).returning({attempts:intakeLimits.attempts});return Number(rows[0].attempts)>max;}
+export async function verifyPassword(email:string,password:string){const cfg=env as unknown as Record<string,string>;const encoded=cfg.ADMIN_PASSWORD_HASH;if(!encoded||!cfg.ADMIN_EMAIL)return false;const [salt,expected]=encoded.split(':');const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(password),'PBKDF2',false,['deriveBits']);const actual=hex(await crypto.subtle.deriveBits({name:'PBKDF2',salt:new TextEncoder().encode(salt),iterations:100000,hash:'SHA-256'},key,256));let mismatch=actual.length^expected.length;for(let i=0;i<actual.length;i++)mismatch|=actual.charCodeAt(i)^expected.charCodeAt(i);return email.toLowerCase()===cfg.ADMIN_EMAIL.toLowerCase()&&mismatch===0;}
+export function sessionCookie(token:string,r:Request,clear=false){return `ss_admin=${token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${clear?0:28800}${new URL(r.url).protocol==='https:'?'; Secure':''}`;}

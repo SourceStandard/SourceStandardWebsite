@@ -1,0 +1,5 @@
+export type RegistryRecord={id:string;name:string;program:string;status:string;website:string;country:string;scope:string;reviewedAt:string};
+export const exampleRecords:RegistryRecord[]=[
+ {id:'EXAMPLE-V-001',name:'Illustrative Vendor',program:'vendor',status:'Source Standard Verified',website:'https://example.com',country:'Illustrative jurisdiction',scope:'Example of a review of disclosed manufacturer relationships, supporting purchasing evidence, and sourcing declarations against the applicable Vendor Verification requirements. This is an illustrative record, not a completed evaluation.',reviewedAt:'October 2026 (illustrative)'},
+ {id:'EXAMPLE-M-001',name:'Illustrative Manufacturer',program:'manufacturer',status:'Greenlisted',website:'https://example.com',country:'Illustrative jurisdiction',scope:'Example of a scoped manufacturer evaluation supported by selected analytical samples and defined identity evidence. This is an illustrative record. No laboratory evaluation or actual recognition is represented.',reviewedAt:'October 2026 (illustrative)'}
+];

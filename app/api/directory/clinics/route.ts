@@ -1,0 +1,2 @@
+import {clinicFilters,getClinicPage} from '../../../directory/clinic-page';
+export async function GET(r:Request){try{const params=Object.fromEntries(new URL(r.url).searchParams);return Response.json(await getClinicPage(clinicFilters(params)),{headers:{'Cache-Control':'no-store'}})}catch{return Response.json({error:'Clinic records could not be loaded. Please try again.'},{status:503,headers:{'Cache-Control':'no-store'}})}}

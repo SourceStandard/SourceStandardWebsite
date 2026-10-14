@@ -1,0 +1,4 @@
+import {ArrowUpRight} from 'lucide-react';
+import PageHeading from './PageHeading';
+import {navigation} from '../navigation';
+export default function Hub({label,title,intro}:{label:string;title:string;intro:string}){const group=navigation.find(g=>g.label===label)!;return <main id="main"><PageHeading eyebrow={label} title={title} intro={intro}/><div className="wrap section"><div className="hub-grid">{group.links.map((link,i)=><a key={link.href} className="hub-card" href={link.href}><span className="hub-number">0{i+1}</span><h2>{link.label}</h2><p>{link.description}</p><span className="text-link">Learn more <ArrowUpRight size={18}/></span></a>)}</div><div className="note">Membership and completed testing are separate. Findings apply only to analyzed samples and do not establish safety or regulatory approval.</div></div></main>}

@@ -1,0 +1,1 @@
+ALTER TABLE `program_memberships` ADD `schedule_review` text DEFAULT 'Annual schedule requires administrative review' NOT NULL;

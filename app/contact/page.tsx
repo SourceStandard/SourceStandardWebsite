@@ -1,0 +1,5 @@
+import {ArrowUpRight,Mail} from 'lucide-react';
+import PageHeading from '../components/PageHeading';
+import InquiryForm from '../components/InquiryForm';
+export const metadata={title:'Contact'};
+export default function Contact(){return <main id="main"><PageHeading eyebrow="CONTACT" title="Contact Source Standard" intro="Ask about participation, testing history, or clinical directory information."/><div className="wrap section form-layout"><aside className="form-sidebar"><span className="eyebrow">CONTACT SOURCE STANDARD</span><h2>How can we help?</h2><a className="contact-email" href="mailto:info@sourcestandard.org"><Mail size={19}/>info@sourcestandard.org</a><p>For program participation, use preliminary intake to introduce your business and documentation readiness.</p><a className="text-link" href="/apply">Start an application <ArrowUpRight size={17}/></a><div className="sidebar-note"><strong>Information about a record?</strong><p>Include the record ID or profile link and supporting information.</p><a className="text-link" href="/report-concern">Report a concern <ArrowUpRight size={17}/></a></div></aside><InquiryForm/></div></main>}

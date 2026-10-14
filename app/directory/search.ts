@@ -1,0 +1,2 @@
+import type {DirectoryRecord} from './config';
+export function vendorMatches(row:DirectoryRecord,query:string){const q=query.trim().toLowerCase().replace(/^https?:\/\//,'').replace(/^www\./,'').replace(/\/$/,'');let p:{alternateName?:string;instagramUrl?:string}={};try{p=JSON.parse(row.profile)}catch{}return `${row.name} ${row.location} ${row.website.replace(/^https?:\/\//,'').replace(/^www\./,'')} ${p.alternateName||''} ${p.instagramUrl||''}`.toLowerCase().includes(q)}

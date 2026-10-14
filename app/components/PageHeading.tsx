@@ -1,0 +1,1 @@
+export default function PageHeading({eyebrow,title,intro}:{eyebrow:string;title:string;intro:string}){return <div className="page-heading"><div className="wrap"><nav aria-label="Breadcrumb" className="breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>{eyebrow}</span></nav><h1>{title}</h1><p className="intro">{intro}</p></div></div>}

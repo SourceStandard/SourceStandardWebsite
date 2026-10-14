@@ -1,0 +1,1 @@
+export default function Logo({light=false}:{light?:boolean}){return <a href="/" className="brand" aria-label="Source Standard home"><img src={light?'/brand/source-standard-logo-light.png':'/brand/source-standard-logo.png'} alt="Source Standard" width="683" height="230"/><span>INDEPENDENT VERIFICATION</span></a>}

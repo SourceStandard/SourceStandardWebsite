@@ -1,0 +1,8 @@
+import {membershipRecords} from './membership-records';
+import {getDb} from '../db';
+import {memberships,testEvents} from '../db/schema';
+import {eq} from 'drizzle-orm';
+export type PublicTest={id:string;product:string;lot:string;labeledSize:string;testDate:string;laboratory:string;method:string;identityFinding:string;purityFinding:string;outcome:string;publicReportUrl:string;redactionNotice:string;correction:string};
+export type ProgramSummary={membership:string;activationDate:string;testing:string;legacy:boolean};
+export async function programSummaries(){const db=getDb();const rows=await membershipRecords(db);const tests=await db.select({companyId:testEvents.companyId,published:testEvents.published}).from(testEvents);const testing=(id:string)=>tests.some(t=>t.companyId===id&&t.published==='yes')?'Published findings':tests.some(t=>t.companyId===id)?'Results pending publication':'Not Yet Tested';const summaries=new Map(rows.map(r=>[r.companyId,{...r,testing:testing(r.companyId)}]));for(const t of tests)if(!summaries.has(t.companyId))summaries.set(t.companyId,{companyId:t.companyId,status:'Enrollment not recorded',activationDate:'',scheduleReview:'',updatedAt:'',testing:testing(t.companyId)});return summaries}
+export async function publicTests(companyId:string):Promise<PublicTest[]>{const rows=await getDb().select().from(testEvents).where(eq(testEvents.companyId,companyId));return rows.filter(r=>r.published==='yes').map(({id,product,lot,labeledSize,testDate,laboratory,method,identityFinding,purityFinding,outcome,publicReportUrl,redactionNotice,correction})=>({id,product,lot,labeledSize,testDate,laboratory,method,identityFinding,purityFinding,outcome,publicReportUrl,redactionNotice,correction})).sort((a,b)=>b.testDate.localeCompare(a.testDate))}

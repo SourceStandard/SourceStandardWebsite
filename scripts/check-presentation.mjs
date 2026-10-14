@@ -1,0 +1,14 @@
+const base=process.env.SITE_CHECK_URL||'http://127.0.0.1:5173';
+const guides=['reading-a-coa','manufacturer-vs-vendor','recognition-scope','independent-surveillance','documented-sourcing','evaluation-independence'];
+const paths=['/','/explore','/participate','/organization','/registry','/registry?view=example','/registry/EXAMPLE-V-001','/registry/EXAMPLE-M-001','/how-it-works','/vendors','/manufacturers','/standards','/learn',...guides.map(s=>'/learn/'+s),'/faq','/about','/governance','/contact','/report-concern','/report-concern?record=EXAMPLE-V-001','/privacy','/terms','/apply','/apply?program=manufacturer'];
+const pages=new Map();
+for(const path of paths){const res=await fetch(base+path);const html=await res.text();if(res.status!==200)throw Error(`${path}: ${res.status}`);if(!/<h1\b/.test(html))throw Error(`${path}: missing heading`);if(!html.includes('Source Standard'))throw Error(`${path}: missing brand`);pages.set(path,html);}
+const targets=new Set();const anchors=[];const assets=new Set();
+const decode=s=>s.replace(/&amp;/g,'&');
+for(const [path,html] of pages){for(const match of html.matchAll(/<a\b[^>]*href="([^"]+)"/g)){const value=decode(match[1]);if(value.startsWith('mailto:')||value.startsWith('/signin-with-chatgpt')||value.startsWith('/signout-with-chatgpt'))continue;const url=new URL(value,base+path);if(url.origin!==new URL(base).origin)continue;if(url.hash)anchors.push({page:path,url});if(url.pathname!=='/account')targets.add(url.pathname+url.search);}for(const match of html.matchAll(/<img\b[^>]*src="([^"]+)"/g)){const url=new URL(decode(match[1]),base);if(url.origin===new URL(base).origin)assets.add(url.pathname);}}
+for(const path of targets){if(pages.has(path))continue;const res=await fetch(base+path);const html=await res.text();if(res.status!==200)throw Error(`Linked destination ${path}: ${res.status}`);pages.set(path,html);}
+for(const {page,url} of anchors){const html=pages.get(url.pathname+url.search)||await(await fetch(url)).text();if(!html.includes(`id="${decodeURIComponent(url.hash.slice(1))}"`))throw Error(`Broken anchor from ${page}: ${url.pathname+url.hash}`);}
+for(const path of assets){const res=await fetch(base+path);if(res.status!==200)throw Error(`Image failed: ${path}`);}
+for(const path of ['/clinics/old-record','/facilities/old-record','/directory/old-record','/greenlist/old-record','/status-definitions','/verification-disclaimer','/report-a-concern']){const res=await fetch(base+path);if(res.status!==200)throw Error(`Legacy route failed: ${path}`);}
+const missing=await fetch(base+'/registry/DOES-NOT-EXIST');if(missing.status!==404)throw Error('Missing registry record should return 404');
+console.log(`PASS: ${pages.size} presentation destinations; ${targets.size} internal linked destinations; ${anchors.length} section anchors; ${assets.size} brand assets; legacy redirects; missing-record 404.`);

@@ -1,0 +1,1 @@
+export default function NotFound(){return <main id="main" className="not-found"><p className="eyebrow" style={{justifyContent:'center'}}>404 / RECORD NOT FOUND</p><h1>No page at this address.</h1><p>The page may have moved during the peptide framework rebuild.</p><a className="button" href="/">Return home →</a></main>}
