@@ -54,7 +54,7 @@ export const content:Record<string,ContentPage>={
       {
         "heading": "What participation means",
         "text": [
-          "Members agree to independent selection, independently purchased sample purchases, and public accountability. Membership does not guarantee a passing result."
+          "Members agree to independent product selection, regular website purchases without advance notice, and public accountability. Membership does not guarantee a passing result."
         ]
       },
       {
@@ -66,7 +66,7 @@ export const content:Record<string,ContentPage>={
       {
         "heading": "Read the public record",
         "text": [
-          "Profiles distinguish membership status from actual sample findings. The evidence section says Not Yet Tested when no completed event is available."
+          "Profiles distinguish membership status from actual sample findings. The evidence section clearly identifies when no surveillance results have been published."
         ]
       }
     ],
@@ -105,7 +105,7 @@ export const content:Record<string,ContentPage>={
         "heading": "Membership and published findings",
         "text": [
           "Verified means the vendor meets Source Standard enrollment requirements and participates in independent identity and purity surveillance. It does not mean an independent test has already happened or that every product or batch passed. Active is the underlying membership state. Under review, Suspended, and Removed are distinct membership states. Enrollment not recorded means current membership has not been documented. None of these replaces the testing history.",
-          "Completed events identify the product, lot where known, test date, laboratory, method, actual findings, and approved public report. If no completed independent event is recorded, the profile says Not Yet Tested. Completed events awaiting public disclosure are identified as pending publication. Report links and sample evidence appear with the company’s actual testing history."
+          "Completed events identify the product, lot where known, test date, laboratory, method, actual findings, and approved public report. When no public independent surveillance report is available, the profile says no surveillance results are published. Completed events awaiting public disclosure are identified as pending publication. Report links and sample evidence appear with the company’s actual testing history."
         ]
       },
       {
@@ -214,19 +214,19 @@ export const content:Record<string,ContentPage>={
   "privacy": {
     "eyebrow": "PRIVACY & DATA HANDLING",
     "title": "Public records. Restricted private information.",
-    "intro": "Company identity and approved findings belong in public profiles. Contact details and confidential commercial records do not.",
+    "intro": "Company identity and approved findings belong in public profiles. Private application contacts and confidential commercial records do not.",
     "note": "Do not put supplier documents or patient information in a general inquiry.",
     "sections": [
       {
         "heading": "Company introductions",
         "text": [
-          "Preliminary requests collect company name, website, organization type, contact name, and email for follow-up. Contact details and administrative notes are not published in directories."
+          "Preliminary requests collect company name, website, organization type, contact name, and email for follow-up. Application contacts and administrative notes are not published in directories. Business contact information already made public by the company, or explicitly approved for public display, may appear on its profile."
         ]
       },
       {
         "heading": "Confidential records",
         "text": [
-          "Supplier disclosures, invoices, sourcing relationships, and original reports are restricted administrative records. They are excluded from public profiles, search responses, and client assets. Use an arranged private channel for confidential documents."
+          "Confidential supplier disclosures, invoices, sourcing relationships, and original reports are restricted administrative records. They are excluded from public profiles, search responses, and client assets. Use an arranged private channel for confidential documents."
         ]
       },
       {

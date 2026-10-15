@@ -1,4 +1,3 @@
-import PageHeading from '../components/PageHeading';
 import Faq from './Faq';
 export const metadata={title:'Frequently Asked Questions'};
-export default function Page(){return <main id="main"><PageHeading eyebrow="FREQUENTLY ASKED QUESTIONS" title="Frequently asked questions" intro="Clear answers about listings, membership, independent sampling, and what findings can—and cannot—show."/><div className="wrap section"><Faq/></div></main>}
+export default function Page(){return <main id="main" className="editorial-page faq-page"><header className="wrap editorial-hero"><nav className="editorial-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span>Help & answers</nav><div className="faq-intro"><h1>A clearer answer.<br/>A better next step.</h1><p className="editorial-lead">Understand membership, independent testing and the information in each company profile.</p></div></header><section className="wrap faq-content" aria-label="Frequently asked questions"><Faq/></section></main>}
