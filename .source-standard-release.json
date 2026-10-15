@@ -1,6 +1,6 @@
 {
   "site": "https://sourcestandard.org",
-  "sitesVersion": 17,
-  "sitesSourceCommit": "9a65526f74d7b77193b4646bf3324e3eb7aeac0c",
+  "sitesVersion": 18,
+  "sitesSourceCommit": "0911bc72f46cda63f306aaa6a50b7a4a1e4491b2",
   "note": "Published website source snapshot. Runtime secrets and private database records are excluded."
 }

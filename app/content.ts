@@ -5,7 +5,7 @@ export const content:Record<string,ContentPage>={
     "eyebrow": "THE RESEARCH PROGRAM",
     "title": "Independent purchases. Evidence you can inspect.",
     "intro": "Check participation, then read the actual sample findings. They answer different questions.",
-    "note": "An active member may not have published surveillance results.",
+    "note": "An active member may not have published test results.",
     "sections": [
       {
         "heading": "Participation",
@@ -66,7 +66,7 @@ export const content:Record<string,ContentPage>={
       {
         "heading": "Read the public record",
         "text": [
-          "Profiles distinguish membership status from actual sample findings. The evidence section clearly identifies when no surveillance results have been published."
+          "Profiles distinguish membership status from actual sample findings. The evidence section clearly identifies when no test results have been published."
         ]
       }
     ],
@@ -105,7 +105,7 @@ export const content:Record<string,ContentPage>={
         "heading": "Membership and published findings",
         "text": [
           "Verified means the vendor meets Source Standard enrollment requirements and participates in independent identity and purity surveillance. It does not mean an independent test has already happened or that every product or batch passed. Active is the underlying membership state. Under review, Suspended, and Removed are distinct membership states. Enrollment not recorded means current membership has not been documented. None of these replaces the testing history.",
-          "Completed events identify the product, lot where known, test date, laboratory, method, actual findings, and approved public report. When no public independent surveillance report is available, the profile says no surveillance results are published. Completed events awaiting public disclosure are identified as pending publication. Report links and sample evidence appear with the company’s actual testing history."
+          "Completed events identify the product, lot where known, test date, laboratory, method, actual findings, and approved public report. When no public independent test report is available, the profile says no test results are published. Completed events awaiting public disclosure are identified as pending publication. Report links and sample evidence appear with the company’s actual testing history."
         ]
       },
       {

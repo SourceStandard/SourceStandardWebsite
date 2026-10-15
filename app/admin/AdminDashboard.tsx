@@ -1,9 +1,10 @@
 'use client';
+import {researchVendorLabel} from '../directory/public-labels';
 import {useEffect,useState} from 'react';
 import SurveillanceSettings from './SurveillanceSettings';
 import CompanyManager from './CompanyManager';
 type Item={id:string;company:string;website:string;type:string;contact:string;email:string;status:string;notes:string;createdAt:string;legacy?:boolean};
-const types:Record<string,string>={vendor:'RUO vendor',manufacturer:'Manufacturer',clinic:'Clinic','503a':'503A pharmacy','503b':'503B facility',other:'Other'};
+const types:Record<string,string>={vendor:researchVendorLabel,manufacturer:'Manufacturer',clinic:'Clinic','503a':'503A pharmacy','503b':'503B facility',other:'Other'};
 export default function AdminDashboard({preview=false}:{preview?:boolean}){const [ready,setReady]=useState(false),[signed,setSigned]=useState(false),[items,setItems]=useState<Item[]>([]),[selected,setSelected]=useState<Item|null>(null),[error,setError]=useState(''),[busy,setBusy]=useState(false),[query,setQuery]=useState(''),[filter,setFilter]=useState('All'),[tab,setTab]=useState('requests');
 async function load(){const r=await fetch('/api/admin/requests',{cache:'no-store'});const data=await r.json() as {requests:Item[];error?:string};if(r.ok){setSigned(true);setItems(data.requests)}else if(r.status===401)setSigned(false);else setError(data.error||'Unable to load requests.');setReady(true)}useEffect(()=>{load().catch(()=>{setError('Unable to load requests.');setReady(true)})},[]);
 async function login(e:React.FormEvent<HTMLFormElement>){e.preventDefault();const f=new FormData(e.currentTarget);setBusy(true);setError('');try{const r=await fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:f.get('email'),password:f.get('password')})});const d=await r.json() as {error?:string};if(!r.ok)setError(d.error||'Request failed.');else await load()}catch{setError('Unable to sign in. Try again.')}finally{setBusy(false)}}
