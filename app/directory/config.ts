@@ -20,7 +20,7 @@ export function publicType(r:DirectoryRecord){
  if(/classification unconfirmed/i.test(r.category))return 'Business type not confirmed';
  if(/research peptide vendor.*reported/i.test(r.category))return 'Research vendor · source-reported';
  if(/affiliate|informational/i.test(r.category))return 'Industry information provider';
- if(/marketplace/i.test(r.category))return 'Research marketplace';
+ if(/marketplace/i.test(r.category))return 'Research business';
  return 'Research-use-only vendor';
 }
 export function publicLocation(r:DirectoryRecord){const value=r.location.trim();if(!value||/^(unknown\b|not (?:provided|stated|available|publicly listed)|n\/?a$|[-—]$)/i.test(value))return '';return value.replace(/\s*\([^)]*\)/g,'').trim()}

@@ -36,7 +36,7 @@ export const content:Record<string,ContentPage>={
       {
         "heading": "Later programs",
         "text": [
-          "Manufacturer Greenlisting and supplier catalog or marketplace services are future phases. They are not current enrollment requirements. Clinical and 503A/503B provider verification is coming soon."
+          "Manufacturer Greenlisting is a future program, not a current enrollment requirement. Clinical and 503A/503B provider verification is coming soon."
         ]
       }
     ],
@@ -160,7 +160,7 @@ export const content:Record<string,ContentPage>={
       {
         "heading": "Distinct roles and future phases",
         "text": [
-          "Clinical providers have a separate informational directory. 503A and 503B verification is coming soon. Manufacturer Greenlisting, catalogs, and marketplace services are later phases. Source Standard does not certify products for human or animal use."
+          "Clinical providers have a separate informational directory. 503A and 503B verification is coming soon. Manufacturer Greenlisting is a future program. Source Standard does not certify products for human or animal use."
         ]
       },
       {
